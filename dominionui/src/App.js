@@ -1,25 +1,44 @@
-import logo from './logo.svg';
 import './App.css';
+import Block from './Block.js';
+import {Button, Input, TextArea} from '@fluentui/react-northstar';
 
-function App() {
+
+const App= () =>{
+
+      const block={
+       title:"Starter Title",
+       description: "Starter Block Description",
+       content:"Contenuto disabilitato",
+       actionValue: "Send to the next block"
+       }
+     
+       const handleSubmit=()=>{
+         alert("clicked");
+       }
+
+     const textarea =(content) => {
+       return (
+         <TextArea disabled value={content}/> 
+       );
+     }
+
+      const call=(buttonValue) =>{
+        return(     
+            <Button content={buttonValue} />       
+        );
+      }
+
+      const starterAction = () =>{
+        return(
+          <Input style={{borderStyle:"dotted"}} placeholder="input here"/>
+        );
+      }
+  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Block block={block} type={textarea} action={call} starter={starterAction} />
   );
 }
 
 export default App;
+
