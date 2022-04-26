@@ -8,5 +8,5 @@ Blocks are basic software pieces that can perform these three step:
 - Elaborate a Data
 - Send Data to other block
 
-Each Block is independent and don't understand or know the reason why other Block should exists. Each Block exists to perform its own micro-activity.
+Each Block is independent and don't understand or know the reason why other Block should exist. Each Block exists to perform its own micro-activity.
 Every Block can be connected to other passing data as a Json object
