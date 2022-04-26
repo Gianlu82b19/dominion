@@ -14,8 +14,9 @@ const App= () =>{
     ]
   )
 
-  const [input, setInput] = useState('');
+  const [BlockInput, setInput] = useState('');
 
+    //starter development block. Drafted and incremental
       const block={
        title:"Starter Title",
        description: "Starter Block Description",
@@ -41,7 +42,7 @@ const App= () =>{
 
       const call=(buttonValue) =>{
         return(     
-            <Button onClick={()=>handleCallButton(input,14)} content={buttonValue} /> 
+            <Button onClick={()=>handleCallButton(BlockInput,14)} content={buttonValue} /> 
             
         );
       }
@@ -52,7 +53,7 @@ const App= () =>{
 
       const starterAction = () =>{
         return(
-          <Input onChange={handleOnChange} value={input} style={{borderStyle:"dotted"}} placeholder="input here"/>
+          <Input onChange={handleOnChange} value={BlockInput} style={{borderStyle:"dotted"}} placeholder="input here"/>
         );
       }
   
