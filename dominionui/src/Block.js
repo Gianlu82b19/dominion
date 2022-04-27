@@ -16,8 +16,8 @@ const Block = (props: iBlock)=>{
             <CardBody>
             <Flex column>            
             {props.type(block.content)}
-            {props.starter()}
-            {props.action(block.actionValue)}
+            {props.starter(block.idBlock)}
+            {props.action(block.actionValue, block.idBlock)}
            </Flex>
            </CardBody>
         </Card>

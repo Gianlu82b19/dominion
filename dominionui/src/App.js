@@ -9,20 +9,36 @@ const App= () =>{
 
   const [flow, setFlow] = useState(
     [
-      {data:"value one", input:"block one"},
-      {data:"value two", input:"block two"}
+      //{data:"value one", input:"block one"},
+      //{data:"value two", input:"block two"}
     ]
   )
 
   const [BlockInput, setInput] = useState('');
 
     //starter development block. Drafted and incremental
-      const block={
-       title:"Starter Title",
-       description: "Starter Block Description",
+      const [blocks, setBlock]=useState([
+        {
+       idBlock:0,
+       title:"Starter Block",
+       description: "Insert data into block Zero",
        content:"Contenuto disabilitato",
-       actionValue: "Send to the next block"
-       }
+       actionValue: "Send to the next block",
+       value:"",
+       outputIds:[1]
+       },
+       {
+        idBlock:1,
+        title:" Block One",
+        description: "Block One receive from block Zero",
+        content:"Data from block Zero",
+        actionValue: "Send to the next block",
+        value:"",
+        outputIds:[1]
+        }      
+      ]);
+
+      
      
        const handleSubmit=()=>{
          alert("clicked");
@@ -34,32 +50,36 @@ const App= () =>{
        );
      }
 
-     const handleCallButton = (value, id) =>{
-        const data =[...flow,{data:value,input:id}]
+     const handleCallButton = (value, inputId, outputId) =>{
+        const data =[...flow,{data:value, input:inputId, output:outputId}]
         setFlow(data);
         console.log(data);
      }
 
-      const call=(buttonValue) =>{
+      const call=(buttonValue,id) =>{
         return(     
-            <Button onClick={()=>handleCallButton(BlockInput,14)} content={buttonValue} /> 
-            
+            <Button onClick={()=>handleCallButton(blocks[id].value,blocks[id].idBlock,blocks[id].outputIds[id])} content={buttonValue} />             
         );
       }
 
-      const handleOnChange= (e)=>{
-        setInput(e.target.value);        
+      const handleOnChange= (e, id)=>{
+        const data= blocks.slice();        
+        data[id].value = e.target.value;
+        setBlock(data);        
       }
 
-      const starterAction = () =>{
+      const starterAction = (id) =>{        
         return(
-          <Input onChange={handleOnChange} value={BlockInput} style={{borderStyle:"dotted"}} placeholder="input here"/>
+          <Input onChange={(e)=>handleOnChange(e,id)} value={blocks[id].value} style={{borderStyle:"dotted"}} placeholder="input here"/>          
         );
       }
   
 
   return (
-    <Block block={block} type={textarea} action={call} starter={starterAction} />
+    <div>
+    <Block block={blocks[0]} type={textarea} action={call} starter={starterAction} />
+    <Block block={blocks[1]} type={textarea} action={call} starter={starterAction} />
+    </div>
   );
 }
 
