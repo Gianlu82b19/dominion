@@ -1,25 +1,21 @@
 import React from "react"
 import iBlock from "./interfaces.ts"
 import { useState } from "react";
-import {Card, CardBody, CardHeader, Flex, Text} from '@fluentui/react-northstar';
+import {Card, Flex, Text} from 'react-bootstrap';
 
 const Block = (props: iBlock)=>{
 
     const [block, setValue] = useState(props.block);
 
     return(
-        <Card>
-            <CardHeader>
-                <Text content={block.title} weight="bold"/>
-                <Text content={block.description} size="small"/>
-            </CardHeader>
-            <CardBody>
-            <Flex column>            
-            {props.type(block.content)}
+        <Card style={{ width: '18rem' }}>
+            <Card.Title> {block.title}</Card.Title>
+            <Card.Subtitle ClassName="mb-2 text-muted">{block.description}</Card.Subtitle>
+            <Card.Body>                
+            {props.inputFromOtherBlock(block.idBlock)}
             {props.starter(block.idBlock)}
-            {props.action(block.actionValue, block.idBlock)}
-           </Flex>
-           </CardBody>
+            {props.action(block.actionValue, block.idBlock)}      
+           </Card.Body>
         </Card>
     );
 }
