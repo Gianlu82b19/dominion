@@ -16,7 +16,7 @@ const App= () =>{
 
   const [BlockInput, setInput] = useState('');
 
-    //starter development block. Drafted and incremental
+    //Example of configuration Workflow
       const [blocks, setBlock]=useState([
         {
        idBlock:0,
