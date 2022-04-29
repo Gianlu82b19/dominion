@@ -34,7 +34,7 @@ const App= () =>{
         description: "Block One receive from block Zero",
         content:"",
         actionValue: "Send to the next block",
-        formulas: {kind:"addPercent"},
+        formulas: {kind:"min"},
         value: 22,
         autoFire:true,
         outputIds:[2]
@@ -77,7 +77,7 @@ const App= () =>{
       return ((Number)(blocks[inputId].content) * (Number)(blocks[inputId].value)/100)+(Number)(blocks[inputId].content);
 
       if((blocks[inputId].formulas.kind!=undefined) && (blocks[inputId].formulas.kind==="min"))
-      return blocks[inputId].value - blocks[inputId].content;
+      return  blocks[inputId].content -blocks[inputId].value;
 
         return blocks[inputId].value;
      }
