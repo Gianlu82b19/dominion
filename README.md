@@ -20,4 +20,4 @@ Current coded formulas
 - concat
 
 # Autofire
-A block can be in a special status called Autofire, that means that once the block is configurate it will elaborate the input and pass the result value to the next block(s) automatically
+A block can be in a special status called Autofire, that means that once the block is well configured it will elaborate the input and pass the result value to the next block(s) automatically
