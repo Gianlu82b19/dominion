@@ -61,12 +61,17 @@ const App= () =>{
        );
      }
 
-     const handleCallButton = (value, inputId, outputId) =>{
-      console.log(value,inputId,outputId)
-        const data =[...flow,{data:value, input:inputId, output:outputId}]
-        setFlow(data);
-        blocks[outputId].content=value;
+     const handleCallButton = (inputId, outputId) =>{
+      console.log(inputId,outputId)
+
+        //example formulas concat
+        blocks[inputId].evaluation = blocks[inputId].value +" "+ blocks[inputId].content;
+
+        blocks[outputId].content=blocks[inputId].evaluation;
         setBlock(blocks)
+
+        const data =[...flow,{input:blocks[inputId], output:blocks[outputId]}]
+        setFlow(data);       
         //setFlow(data);
         //valorizzo il dato nell'output
         console.log(data)
@@ -75,7 +80,7 @@ const App= () =>{
 
       const call=(buttonValue,id) =>{
         return(     
-            <Button variant="primary" onClick={()=>handleCallButton(blocks[id].value,blocks[id].idBlock,blocks[id].outputIds[0])}>
+            <Button variant="primary" onClick={()=>handleCallButton(blocks[id].idBlock,blocks[id].outputIds[0])}>
               {buttonValue}</Button>             
         );
       }
