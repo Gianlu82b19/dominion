@@ -11,4 +11,6 @@ Blocks are basic software pieces that can perform these three step:
 Each Block is independent and don't understand or know the reason why other Block should exist. Each Block exists to perform its own micro-activity.
 Every Block can be connected to other passing data as a Json object
 # Formulas
-Formulas are special feature that can elaborate the input value locally. Features can be written in code, or can extends external API functions
+Formulas are special features that can elaborate the input value locally within the block.
+# Autofire
+A block can be in a special status called Autofire, that means that once the block is configurate it will elaborate the input and pass the result value to the next block(s) automatically
