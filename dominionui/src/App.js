@@ -1,8 +1,8 @@
 import './App.css';
 import Block from './Block.js';
-import iBlock from './interfaces.ts'
 import {Button, Form} from 'react-bootstrap';
 import { useState } from 'react';
+
 
 
 const App= () =>{
@@ -24,6 +24,7 @@ const App= () =>{
        description: "Insert data into block Zero",
        content:"Contenuto disabilitato",
        actionValue: "Send to the next block",
+       formulas: {kind:""},
        value:"",
        outputIds:[1]
        },
@@ -33,7 +34,9 @@ const App= () =>{
         description: "Block One receive from block Zero",
         content:"",
         actionValue: "Send to the next block",
-        value:"",
+        formulas: {kind:"addPercent"},
+        value: 22,
+        autoFire:true,
         outputIds:[2]
         }      
         ,
@@ -43,10 +46,12 @@ const App= () =>{
         description: "Block Two receive from block One",
         content:"",
         actionValue: "Send to the next block",
+        formulas: {kind:""},
         value:"",
         outputIds:[0]
         }
       ]);
+
 
       
      
@@ -61,13 +66,30 @@ const App= () =>{
        );
      }
 
-     const handleCallButton = (inputId, outputId) =>{
-      console.log(inputId,outputId)
+     const leverageFormulas= (inputId)=>{
+      if((blocks[inputId].formulas.kind!=undefined) && (blocks[inputId].formulas.kind==="concat"))
+      return blocks[inputId].value + " " + blocks[inputId].content;
 
-        //example formulas concat
-        blocks[inputId].evaluation = blocks[inputId].value +" "+ blocks[inputId].content;
+      if((blocks[inputId].formulas.kind!=undefined) && (blocks[inputId].formulas.kind==="plus"))
+      return (Number)(blocks[inputId].value) + (Number)(blocks[inputId].content);
 
-        blocks[outputId].content=blocks[inputId].evaluation;
+      if((blocks[inputId].formulas.kind!=undefined) && (blocks[inputId].formulas.kind==="addPercent"))
+      return ((Number)(blocks[inputId].content) * (Number)(blocks[inputId].value)/100)+(Number)(blocks[inputId].content);
+
+      if((blocks[inputId].formulas.kind!=undefined) && (blocks[inputId].formulas.kind==="min"))
+      return blocks[inputId].value - blocks[inputId].content;
+
+        return blocks[inputId].value;
+     }
+
+     const handleCallButton = (inputId) =>{
+        let outputId = blocks[inputId].outputIds[0];
+
+        //applying formulas
+        blocks[inputId].result = leverageFormulas(inputId)
+
+        //setting the content (output from formulas)
+        blocks[outputId].content=blocks[inputId].result;
         setBlock(blocks)
 
         const data =[...flow,{input:blocks[inputId], output:blocks[outputId]}]
@@ -75,12 +97,14 @@ const App= () =>{
         //setFlow(data);
         //valorizzo il dato nell'output
         console.log(data)
+        //leveraging autofire
+        if(blocks[outputId].autoFire) handleCallButton(blocks[outputId].idBlock)
         
      }
 
       const call=(buttonValue,id) =>{
         return(     
-            <Button variant="primary" onClick={()=>handleCallButton(blocks[id].idBlock,blocks[id].outputIds[0])}>
+            <Button variant="primary"  onClick={()=>handleCallButton(blocks[id].idBlock)}>
               {buttonValue}</Button>             
         );
       }
@@ -94,7 +118,7 @@ const App= () =>{
 
       const starterAction = (id) =>{        
         return(
-          <Form.Control onChange={(e)=>handleOnChange(e,id)} value={blocks[id].value} style={{borderStyle:"dotted"}} placeholder="input here"/>          
+          <Form.Control  onChange={(e)=>handleOnChange(e,id)} value={blocks[id].value} style={{borderStyle:"dotted"}} placeholder="input here"/>          
         );
       }
   

@@ -9,12 +9,12 @@ const Block = (props: iBlock)=>{
 
     return(
         <Card style={{ width: '18rem' }}>
-            <Card.Title> {block.title}</Card.Title>
-            <Card.Subtitle ClassName="mb-2 text-muted">{block.description}</Card.Subtitle>
+            <Card.Title> {block.title} ({block.idBlock}) {block.autoFire? "*":""}</Card.Title>
+            <Card.Subtitle ClassName="mb-2 text-muted">I will send to {block.outputIds[0]} {block.autoFire? "in autoFire mode":" after click"}</Card.Subtitle>
             <Card.Body>                
             {props.inputFromOtherBlock(block.idBlock)}
             {props.starter(block.idBlock)}
-            {props.action(block.actionValue, block.idBlock)}      
+            {block.autoFire? "" : props.action(block.actionValue, block.idBlock)}      
            </Card.Body>
         </Card>
     );

@@ -5,10 +5,10 @@ interface iBlock{
     description : String; //descrizione del block
     actionValue: String; //testo nel CTA (eg. pulsante)
     value:String; //valore inerito nel blocco
-    formulas:Object; //elaborazioni del contenuto
-    evaluation: String; //elaborato del Block pronto per essere inviato
+    formulas?:Object; //elaborazioni del contenuto
+    result: String; //elaborato del Block pronto per essere inviato
     outputIds:[]; //output del value
-    autoFire: false; //scatena automaticamente l'action del block
+    autoFire?: false; //scatena automaticamente l'action del block
     object?: Object;
 }
 
