@@ -10,3 +10,5 @@ Blocks are basic software pieces that can perform these three step:
 
 Each Block is independent and don't understand or know the reason why other Block should exist. Each Block exists to perform its own micro-activity.
 Every Block can be connected to other passing data as a Json object
+# Formulas
+Formulas are special feature that can elaborate the input value locally. Features can be written in code, or can extends external API functions
