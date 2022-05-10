@@ -2,7 +2,7 @@ import './App.css';
 import Block from './Block.js';
 import {Button, Form} from 'react-bootstrap';
 import { useState } from 'react';
-
+import LineTo from 'react-lineto';
 
 
 const App= () =>{
@@ -67,19 +67,24 @@ const App= () =>{
      }
 
      const leverageFormulas= (inputId)=>{
-      if((blocks[inputId].formulas.kind!=undefined) && (blocks[inputId].formulas.kind==="concat"))
+       //concat
+      if((blocks[inputId].formulas.kind!==undefined) && (blocks[inputId].formulas.kind.toLowerCase()==="concat"))
       return blocks[inputId].value + " " + blocks[inputId].content;
 
-      if((blocks[inputId].formulas.kind!=undefined) && (blocks[inputId].formulas.kind==="plus"))
+      //plus
+      if((blocks[inputId].formulas.kind!==undefined) && (blocks[inputId].formulas.kind.toLowerCase()==="plus"))
       return (Number)(blocks[inputId].value) + (Number)(blocks[inputId].content);
 
-      if((blocks[inputId].formulas.kind!=undefined) && (blocks[inputId].formulas.kind==="addPercent"))
+      //addpercent
+      if((blocks[inputId].formulas.kind!==undefined) && (blocks[inputId].formulas.kind.toLowerCase()==="addpercent"))
       return ((Number)(blocks[inputId].content) * (Number)(blocks[inputId].value)/100)+(Number)(blocks[inputId].content);
 
-      if((blocks[inputId].formulas.kind!=undefined) && (blocks[inputId].formulas.kind==="min"))
+      //min
+      if((blocks[inputId].formulas.kind!==undefined) && (blocks[inputId].formulas.kind.toLowerCase()==="min"))
       return  blocks[inputId].content -blocks[inputId].value;
 
-        return blocks[inputId].value;
+      //no formulas
+      return blocks[inputId].value;
      }
 
      const handleCallButton = (inputId) =>{
@@ -121,13 +126,24 @@ const App= () =>{
           <Form.Control  onChange={(e)=>handleOnChange(e,id)} value={blocks[id].value} style={{borderStyle:"dotted"}} placeholder="input here"/>          
         );
       }
+
   
 
   return (
-    <div>
-    <Block block={blocks[0]} inputFromOtherBlock={showValue} action={call} starter={starterAction} />
-    <Block block={blocks[1]} inputFromOtherBlock={showValue} action={call} starter={starterAction} />
-    <Block block={blocks[2]} inputFromOtherBlock={showValue} action={call} starter={starterAction} />
+    <div cllassName="container"  >
+    <div className="c1">
+    <Block  block={blocks[0]} inputFromOtherBlock={showValue} action={call} starter={starterAction} />
+    </div>
+    <div className="c2">
+    <Block  block={blocks[1]} inputFromOtherBlock={showValue} action={call} starter={starterAction} />
+    </div>
+   
+    <div className="c3">
+    <Block  block={blocks[2]} inputFromOtherBlock={showValue} action={call} starter={starterAction} />
+    </div>
+    <LineTo borderColor="red" from="c1" to="c2" />   
+   
+    
     </div>
   );
 }
