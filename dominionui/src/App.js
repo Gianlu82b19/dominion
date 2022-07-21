@@ -34,7 +34,7 @@ const App= () =>{
         description: "Block One receive from block Zero",
         content:"",
         actionValue: "Send to the next block",
-        formulas: {kind:"min"},
+        formulas: {kind:"addpercent"},
         value: 22,
         autoFire:true,
         outputIds:[2]
